@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.5</TargetFramework>
+    <RootNamespace>AsyncPipeline</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>0.1.0</Version>
+    <Authors>Ian Robertson</Authors>
+    <Product>Async Pipeline</Product>
+    <Description>Build a flexible chained pipeline that can execute the steps asynchronously
+</Description>
+    <Copyright>Ian Robertson</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>Pipeline Asynchronous</PackageTags>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncPipeline", "AsyncPipeline\AsyncPipeline.csproj", "{0A92E708-FD1F-46A8-885F-2AD8B8D7062F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncPipeline.Unit.Tests", "AsyncPipelineBuilder.Unit.Tests\AsyncPipeline.Unit.Tests.csproj", "{D5316BC8-E8EA-4C4C-816F-C43B76D80D9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A92E708-FD1F-46A8-885F-2AD8B8D7062F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A92E708-FD1F-46A8-885F-2AD8B8D7062F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A92E708-FD1F-46A8-885F-2AD8B8D7062F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A92E708-FD1F-46A8-885F-2AD8B8D7062F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5316BC8-E8EA-4C4C-816F-C43B76D80D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5316BC8-E8EA-4C4C-816F-C43B76D80D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5316BC8-E8EA-4C4C-816F-C43B76D80D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5316BC8-E8EA-4C4C-816F-C43B76D80D9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FCE8AAB5-70D0-4FB2-8376-D6612A3F7A76}
+	EndGlobalSection
+EndGlobal
