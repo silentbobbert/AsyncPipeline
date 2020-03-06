@@ -5,7 +5,7 @@
     <RootNamespace>AsyncPipeline</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>0.1.0</Version>
+    <Version>0.1.0.1</Version>
     <Authors>Ian Robertson</Authors>
     <Product>Async Pipeline</Product>
     <Description>Build a flexible chained pipeline that can execute the steps asynchronously
@@ -14,6 +14,10 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>Pipeline Asynchronous</PackageTags>
     <PackageId>Ian.Robertson.AsyncPipeline</PackageId>
+    <PackageProjectUrl>https://github.com/silentbobbert/AsyncPipeline</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/silentbobbert/AsyncPipeline.git</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageReleaseNotes>No functional changes, just updating repo URL and Project URL to let users find this project on Github more easily if they find it on Nuget.Org</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
