@@ -13,6 +13,7 @@
     <Copyright>Ian Robertson</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>Pipeline Asynchronous</PackageTags>
+    <PackageId>Ian.Robertson.AsyncPipeline</PackageId>
   </PropertyGroup>
 
 </Project>
