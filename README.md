@@ -33,7 +33,7 @@ public Task<bool> CreateAndRunPipeline(string input)
                 .Step(builder, first => first.Length) 
             // Second step in the chain takes the length from first step and sees 
             // if its odd or even.
-                .Step(builder, length => length % 2 == 1) 
+                .Step(builder, length => length % 2 == 0) 
             );
     
     // return the awaitable task to the caller to await

@@ -8,15 +8,15 @@ namespace AsyncPipelineBuilder.Unit.Tests
     public class PipelineBuilderTests
     {
         [Theory]
-        [InlineData("The pipeline pattern is the best pattern!", true)]
-        [InlineData("The pipeline pattern is the best pattern!!", false)]
+        [InlineData("The pipeline pattern is the best pattern!", false)]
+        [InlineData("The pipeline pattern is the best pattern!!", true)]
         public async Task PipelineBuilder_should_create_an_executable_simple_pipeline(string input, bool expected)
         {
             // Arrange
             var sut = new PipelineBuilder<string, bool>((inputFirst, builder) =>
                     inputFirst
                         .Step(builder, first => first.Length) // First step takes the input and returns its length
-                        .Step(builder, length => length % 2 == 1) // Second step in the chain takes the length from first step and sees if its odd or even.
+                        .Step(builder, length => length % 2 == 0) // Second step in the chain takes the length from first step and sees if its odd or even.
                     );
 
             // Act
