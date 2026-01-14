@@ -12,11 +12,12 @@ namespace AsyncPipeline
             ChannelOptions? channelOptions = null,
             int degreeOfParallelism = 1)
         {
-            if (pipelineBuilder is null) throw new ArgumentNullException(nameof(pipelineBuilder));
-            if (step is null) throw new ArgumentNullException(nameof(step));
+            ArgumentNullException.ThrowIfNull(pipelineBuilder);
+
+            ArgumentNullException.ThrowIfNull(step);
 
             pipelineBuilder.GenerateStep<TInput, TOutput>(input => new ValueTask<TOutput>(step(input)), channelOptions, degreeOfParallelism);
-            return default(TOutput);
+            return default!;
         }
 
         public static TOutput Step<TInput, TOutput, TInputOuter, TOutputOuter>(this TInput inputType,
@@ -25,11 +26,12 @@ namespace AsyncPipeline
             ChannelOptions? channelOptions = null,
             int degreeOfParallelism = 1)
         {
-            if (pipelineBuilder is null) throw new ArgumentNullException(nameof(pipelineBuilder));
-            if (step is null) throw new ArgumentNullException(nameof(step));
+            ArgumentNullException.ThrowIfNull(pipelineBuilder);
+
+            ArgumentNullException.ThrowIfNull(step);
 
             pipelineBuilder.GenerateStep<TInput, TOutput>(step, channelOptions, degreeOfParallelism);
-            return default(TOutput);
+            return default!;
         }
     }
 }

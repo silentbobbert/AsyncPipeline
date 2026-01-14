@@ -175,13 +175,15 @@ namespace AsyncPipeline
 
         public PipelineBuilder(Func<TPipeIn, PipelineBuilder<TPipeIn, TPipeOut>, TPipeOut> steps)
         {
-            if (steps is null) throw new ArgumentNullException(nameof(steps));
+            ArgumentNullException.ThrowIfNull(steps);
+
             steps.Invoke(default!, this);
         }
 
         public PipelineBuilder(Func<TPipeIn, PipelineBuilder<TPipeIn, TPipeOut>, ValueTask<TPipeOut>> steps)
         {
-            if (steps is null) throw new ArgumentNullException(nameof(steps));
+            ArgumentNullException.ThrowIfNull(steps);
+
             steps.Invoke(default!, this);
         }
 
@@ -234,7 +236,11 @@ namespace AsyncPipeline
 
         public async ValueTask DisposeAsync()
         {
-            if (_disposed) return;
+            if (_disposed)
+            {
+                return;
+            }
+
             _disposed = true;
 
             _pipelineCts.Cancel();
@@ -251,7 +257,10 @@ namespace AsyncPipeline
         internal Step<TStepIn, TStepOut> GenerateStep<TStepIn, TStepOut>(Func<TStepIn, ValueTask<TStepOut>> action, ChannelOptions? options = null, int degreeOfParallelism = 1)
         {
             ThrowIfDisposed();
-            if (_started) throw new InvalidOperationException("Cannot add steps after pipeline has started.");
+            if (_started)
+            {
+                throw new InvalidOperationException("Cannot add steps after pipeline has started.");
+            }
 
             var step = new Step<TStepIn, TStepOut>(action, options, degreeOfParallelism);
             if (_steps.Count == 0)
@@ -268,7 +277,11 @@ namespace AsyncPipeline
 
         private void EnsureStarted()
         {
-            if (_started) return;
+            if (_started)
+            {
+                return;
+            }
+
             _started = true;
 
             for (var i = 0; i < _steps.Count; i++)
@@ -285,7 +298,10 @@ namespace AsyncPipeline
 
         private void ThrowIfDisposed()
         {
-            if (_disposed) throw new ObjectDisposedException(nameof(PipelineBuilder<TPipeIn, TPipeOut>));
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(PipelineBuilder<TPipeIn, TPipeOut>));
+            }
         }
     }
 }
