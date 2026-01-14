@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.5</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>AsyncPipeline</RootNamespace>
+    <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>0.1.0.1</Version>
+    <Version>1.0.0.0</Version>
     <Authors>Ian Robertson</Authors>
     <Product>Async Pipeline</Product>
     <Description>Build a flexible chained pipeline that can execute the steps asynchronously
@@ -17,7 +18,13 @@
     <PackageProjectUrl>https://github.com/silentbobbert/AsyncPipeline</PackageProjectUrl>
     <RepositoryUrl>https://github.com/silentbobbert/AsyncPipeline.git</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
-    <PackageReleaseNotes>No functional changes, just updating repo URL and Project URL to let users find this project on Github more easily if they find it on Nuget.Org</PackageReleaseNotes>
+    <PackageReleaseNotes>1.0.0
+
+- Retargeted to .NET 8.
+- Replaced BlockingCollection/Task.Run pipeline implementation with System.Threading.Channels.
+- Added support for async pipeline steps (ValueTask-based) and configurable per-step parallelism.
+- Improved cancellation and disposal behavior (in-flight executions are canceled on dispose).
+- Expanded unit test coverage (async steps, cancellation, concurrency, async exceptions).</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>

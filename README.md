@@ -1,44 +1,81 @@
 # Async Pipeline
-Build a flexible chained pipeline that can execute the steps asynchronously
 
-## Installation Instructions
-Install the package using your method of choice
+Build a flexible, chainable pipeline that executes steps asynchronously.
 
-Powershell (install latest version)
+`1.x` targets `.NET 8` and uses `System.Threading.Channels` internally.
+
+## Installation
+
+PowerShell:
+
 ```
 Install-Package Ian.Robertson.AsyncPipeline
 ```
 
-dotnet CLI
-```
-dotnet add package Ian.Robertson.AsyncPipeline (install latest version)
-```
-
-Or manually add a reference in your project file (making a note of the version you want)
-```
-<PackageReference Include="Ian.Robertson.AsyncPipeline" Version="0.1.0.1" />
-```
-## Usage Instructions
-The [unit tests](https://github.com/silentbobbert/AsyncPipeline/blob/master/AsyncPipelineBuilder.Unit.Tests/PipelineBuilderTests.cs) are a good place to see how to use this package.
-
-### An example of a pipeline...
-This example works on strings to transform them perhaps, or does some other processing on strings. This overly simplistic pipeline example takes a string, calculates it's length in step 1, and passes that result to step 2. Step 2 takes the length provided by step 1 and does further processing on the length, in this case, working out with the number is odd or even.
+dotnet CLI:
 
 ```
+dotnet add package Ian.Robertson.AsyncPipeline
+```
+
+Or add a reference in your project file:
+
+```
+<PackageReference Include="Ian.Robertson.AsyncPipeline" Version="1.0.0" />
+```
+
+## What's new in 1.0.0
+
+- Target framework updated to `.NET 8`.
+- Pipeline internals rewritten to use `System.Threading.Channels` (no `BlockingCollection` / `Task.Run` worker threads).
+- Steps can be synchronous (`Func<TIn, TOut>`) or asynchronous (`Func<TIn, ValueTask<TOut>>`).
+- Optional per-step `degreeOfParallelism`.
+- `ExecuteAsync` supports per-call cancellation.
+- Disposing the pipeline cancels in-flight executions.
+
+## Usage
+
+The unit tests in `AsyncPipelineBuilder.Unit.Tests/PipelineBuilderTests.cs` show typical usage.
+
+### Simple pipeline example
+
+```csharp
 public Task<bool> CreateAndRunPipeline(string input)
 {
     var pipeline = new PipelineBuilder<string, bool>((inputFirst, builder) =>
-            inputFirst
-            // First step takes the input and returns its length
-                .Step(builder, first => first.Length) 
-            // Second step in the chain takes the length from first step and sees 
-            // if its odd or even.
-                .Step(builder, length => length % 2 == 0) 
-            );
-    
-    // return the awaitable task to the caller to await
+        inputFirst
+            .Step(builder, first => first.Length)
+            .Step(builder, length => length % 2 == 0));
+
     return pipeline.ExecuteAsync(input);
 }
 ```
 
-The pipeline feature is flexible enough to work on any object type, and you can chain as many steps together as you need to get the end result you want.
+### Async steps + cancellation
+
+```csharp
+public async Task<bool> CreateAndRunPipelineAsync(string input, CancellationToken ct)
+{
+    await using var pipeline = new PipelineBuilder<string, bool>((inputFirst, builder) =>
+        inputFirst
+            .Step(builder, async s =>
+            {
+                await Task.Delay(10);
+                return s.Length;
+            })
+            .Step(builder, len => len % 2 == 0));
+
+    return await pipeline.ExecuteAsync(input, ct);
+}
+```
+
+### Per-step parallelism
+
+```csharp
+await using var pipeline = new PipelineBuilder<int, int>((inputFirst, builder) =>
+    inputFirst
+        .Step(builder, x => x + 1, degreeOfParallelism: 4)
+        .Step(builder, x => x * 2, degreeOfParallelism: 4));
+
+var result = await pipeline.ExecuteAsync(10);
+```
